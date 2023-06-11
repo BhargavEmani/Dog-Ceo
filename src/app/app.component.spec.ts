@@ -1,29 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { DogBreedsComponent } from './dog-breeds/dog-breeds.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; 
+import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule, MatProgressSpinnerModule], // Add HttpClientTestingModule
+      declarations: [AppComponent, DogBreedsComponent],
+    });
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'dogCeo'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('dogCeo');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('dogCeo app is running!');
   });
 });

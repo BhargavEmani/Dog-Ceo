@@ -1,0 +1,30 @@
+<section class="container">
+  <header class="header-container">
+    <h1>Please select a dog breed</h1>
+    <select [(ngModel)]="selectedBreed" (change)="breedImages()" class="scrollable-dropdown">
+      <option *ngFor="let breed of breedList" [value]="breed">{{ breed | titlecase }}</option>
+    </select>
+  </header>
+
+  <section *ngIf="loadingBar" class="card-progress-container">
+    <mat-spinner></mat-spinner>
+  </section>
+
+  <section *ngIf="!loadingBar && !errorMessage" class="card-progress-container">
+    <mat-card class="mat-card">
+      <mat-card-header>
+        <div mat-card-avatar class="mat-header-image" [style.background-image]="'url(' + dogImage + ')'"></div>
+        <mat-card-title>{{ selectedBreed | titlecase }}</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="dogImage" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <p *ngIf="!loadingBar && !dogImage" class="card-progress-container error-message">
+    Error occurred while fetching breed details. Please try again later.
+  </p>
+
+</section>

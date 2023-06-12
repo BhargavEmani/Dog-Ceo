@@ -6,10 +6,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+
+
+
+
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule, MatProgressSpinnerModule], // Add HttpClientTestingModule
+      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule, MatProgressSpinnerModule],
       declarations: [AppComponent, DogBreedsComponent],
     });
   });

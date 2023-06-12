@@ -1,7 +1,7 @@
 <section class="container">
   <header class="header-container">
     <h1>Please select a dog breed</h1>
-    <select [(ngModel)]="selectedBreed" (change)="breedImages()" class="scrollable-dropdown">
+    <select [(ngModel)]="selectedBreed" (change)="fetchBreedImages()" class="scrollable-dropdown">
       <option *ngFor="let breed of breedList" [value]="breed">{{ breed | titlecase }}</option>
     </select>
   </header>

@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DogsService } from '../shared/dogs.service';
-import { BreedData } from '../shared/dogs.model';
+import { BreedData, BreedDetails } from '../shared/dogs.model';
 import { Subscription } from 'rxjs';
-import { BreedDetails } from '../shared/dogs.model';
 
 @Component({
   selector: 'app-dog-breeds',
@@ -27,14 +26,16 @@ export class DogBreedsComponent implements OnInit, OnDestroy {
   fetchBreedData() {
     const breedDataSubscription = this.dogService.getDogBreeds().subscribe({
       next: (data: BreedData) => {
-          this.breedList = this.getBreedList(data);
-          this.loadingBar = false;
-    
-          if (this.breedList.length > 0) {
-            this.selectedBreed = this.breedList[0];
-            this.fetchBreedImages();
-          }
-        }, error: (error: Error) => this.handleError(error, 'Failed to fetch breed data.')
+        this.breedList = this.getBreedList(data);
+        if (this.breedList.length > 0) {
+          this.selectedBreed = this.breedList[0];
+          this.fetchBreedImages();
+        }
+      },
+      error: (error: Error) => {
+        this.handleError(error, 'Failed to fetch breed data.')
+        this.loadingBar = false;
+      }
     })
     this.subscription.add(breedDataSubscription);
   }
@@ -53,10 +54,13 @@ export class DogBreedsComponent implements OnInit, OnDestroy {
 
     const breedImageSubscription = this.dogService.getBreedDetails(breedDetails).subscribe({
       next: (data: BreedDetails) => {
-          this.dogImage = data.message;
-          this.loadingBar = false;
-        }, 
-        error:  (error: Error)  => this.handleError(error, 'Failed to fetch breed details.')
+        this.dogImage = data.message;
+        this.loadingBar = false;
+      },
+      error: (error: Error) => {
+        this.handleError(error, 'Failed to fetch breed details.');
+        this.loadingBar = false;
+      }
     });
     this.subscription.add(breedImageSubscription);
   }

@@ -1,30 +1,33 @@
-<section class="container">
-  <header class="header-container">
+<main class="container">
+
+  <header class="header-container flex-center">
     <h1>Please select a dog breed</h1>
-    <select [(ngModel)]="selectedBreed" (change)="fetchBreedImages()" class="scrollable-dropdown">
-      <option *ngFor="let breed of breedList" [value]="breed">{{ breed | titlecase }}</option>
-    </select>
+    <form>
+      <select name="breedSelect" [(ngModel)]="selectedBreed" (change)="fetchBreedImages()" class="scrollable-dropdown">
+        <option *ngFor="let breed of breedList" [value]="breed">{{ breed | titlecase }}</option>
+      </select>
+    </form>
   </header>
 
-  <section *ngIf="loadingBar" class="card-progress-container">
-    <mat-spinner></mat-spinner>
+  <section *ngIf="loadingBar" class="card-progress-container flex-center">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </section>
 
-  <section *ngIf="!loadingBar && !errorMessage" class="card-progress-container">
+  <article *ngIf="!loadingBar && !errorMessage" class="card-progress-container flex-center">
     <mat-card class="mat-card">
       <mat-card-header>
         <div mat-card-avatar class="mat-header-image" [style.background-image]="'url(' + dogImage + ')'"></div>
         <mat-card-title>{{ selectedBreed | titlecase }}</mat-card-title>
         <mat-card-subtitle>Dog Breed</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image [src]="dogImage" alt="Photo of a Shiba Inu">
+      <img mat-card-image [src]="dogImage" alt="Photo of a {{selectedBreed | titlecase}}">
       <mat-card-content>
       </mat-card-content>
     </mat-card>
-  </section>
+  </article>
 
-  <p *ngIf="!loadingBar && !dogImage" class="card-progress-container error-message">
+  <aside *ngIf="!loadingBar && !dogImage" class="card-progress-container flex-center error-message">
     Error occurred while fetching breed details. Please try again later.
-  </p>
+  </aside>
 
-</section>
+</main>
